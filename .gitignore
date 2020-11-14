@@ -34,3 +34,6 @@
 # Project exclude paths
 /log/
 /tmp/
+
+# Environmental variables
+.env
