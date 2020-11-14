@@ -19,6 +19,8 @@ gem 'puma', '~> 4.1'
 # gem 'bcrypt', '~> 3.1.7'
 # Use http.rb for http requests
 gem 'http'
+# Use 'multi_json' for JSON parsing
+gem 'multi_json'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
