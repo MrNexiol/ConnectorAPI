@@ -2,8 +2,9 @@
 
 class ContactsController < ApplicationController
   def index
-    res = HTTP.headers(Authorization: "Bearer #{ENV['GIST_ACCESS_TOKEN']}",
+    tmp = HTTP.headers(Authorization: "Bearer #{ENV['GIST_ACCESS_TOKEN']}",
                        'Content-Type': 'application/json').get('https://api.getgist.com/contacts').to_s
+    res = GistContactExtractor.call(tmp)
     render json: res
   end
 

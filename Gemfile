@@ -33,6 +33,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   gem 'dotenv-rails'
+  gem 'pry', '~> 0.13.1'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # Use Rubocop linter
