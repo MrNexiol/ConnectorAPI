@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GistContactExtractor
-  KEYS_TO_EXTRACT = %w[phone_number first_name last_name job_title mobile_phone_number avatar].freeze
+  KEYS_TO_EXTRACT = %w[id phone_number first_name last_name job_title mobile_phone_number avatar].freeze
   @json_template = {
     'contacts': nil,
     next_page_token: nil,
