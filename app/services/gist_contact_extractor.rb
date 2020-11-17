@@ -24,8 +24,11 @@ class GistContactExtractor
 
   def self.parse_contact(json)
     ruby_res = MultiJson.load(json)
-    tmp = ruby_res['contact'].select do |k, _v|
-      KEYS_TO_EXTRACT.include? k
+    tmp = ruby_res
+    unless ruby_res['errors']
+      tmp = ruby_res['contact'].select do |k, _v|
+        KEYS_TO_EXTRACT.include? k
+      end
     end
     MultiJson.dump(tmp)
   end
