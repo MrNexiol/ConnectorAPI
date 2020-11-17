@@ -2,6 +2,6 @@
 
 class LandingController < ApplicationController
   def index
-    render json: "Landing page"
+    render json: 'Landing page'
   end
 end
