@@ -10,13 +10,12 @@ class GistContactExtractor
 
   def self.call(json)
     ruby_res = MultiJson.load(json)
-    puts ruby_res
-    tmp = {}
-    ruby_res['contacts'].each_with_index do |contact, index|
+    tmp = []
+    ruby_res['contacts'].each do |contact|
       tmp2 = contact.select do |k, _v|
         KEYS_TO_EXTRACT.include? k
       end
-      tmp[index] = tmp2
+      tmp << tmp2
     end
     @json_template['contacts'] = tmp
     MultiJson.dump(@json_template)
