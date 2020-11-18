@@ -4,7 +4,7 @@ class GistContactExtractor
   KEYS_TO_EXTRACT_LIST = %w[id full_name job_title company_name avatar].freeze
   KEYS_TO_EXTRACT = %w[id phone_number first_name last_name job_title company_name mobile_phone_number avatar].freeze
   @json_template = {
-    'contacts': nil,
+    contacts: nil,
     next_page_token: nil,
     next_sync_token: nil
   }
