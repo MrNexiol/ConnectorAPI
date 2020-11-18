@@ -17,7 +17,8 @@ class ContactsController < ApplicationController
   end
 
   def update
-    render json: 'Update action'
+    tmp = GistRequestMaker.post(params: params)
+    render json: GistContactExtractor.parse_contact(tmp)
   end
 
   def destroy
