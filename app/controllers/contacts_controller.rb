@@ -21,6 +21,7 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    render json: 'Delete action'
+    tmp = GistRequestMaker.delete(id: params[:id])
+    render json: GistContactExtractor.parse_contact(tmp)
   end
 end

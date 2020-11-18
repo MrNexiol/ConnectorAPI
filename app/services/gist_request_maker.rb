@@ -6,6 +6,11 @@ class GistRequestMaker
                  'Content-Type': 'application/json').get("https://api.getgist.com/contacts/#{id}").to_s
   end
 
+  def self.delete(id:)
+    HTTP.headers(Authorization: "Bearer #{ENV['GIST_ACCESS_TOKEN']}",
+                 'Content-Type': 'application/json').delete("https://api.getgist.com/contacts/#{id}").to_s
+  end
+
   def self.post(params: nil)
     HTTP
       .headers(Authorization: "Bearer #{ENV['GIST_ACCESS_TOKEN']}", 'Content-Type': 'application/json')
