@@ -2,17 +2,18 @@
 
 class ContactsController < ApplicationController
   def index
-    tmp = GistRequestMaker.call
+    tmp = GistRequestMaker.get
     render json: GistContactExtractor.parse_contact_list(tmp)
   end
 
   def show
-    tmp = GistRequestMaker.call(id: params[:id])
+    tmp = GistRequestMaker.get(id: params[:id])
     render json: GistContactExtractor.parse_contact(tmp)
   end
 
   def create
-    render json: 'Create action'
+    tmp = GistRequestMaker.post(params: params)
+    render json: GistContactExtractor.parse_contact(tmp)
   end
 
   def update
