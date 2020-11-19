@@ -54,10 +54,12 @@ def json_contact(ruby_response)
 end
 
 def choose_error_message(errors)
-  if errors['code'] == 'parameters_missing'
+  if errors['code'] == 'parameter_missing'
     identifier_missing_error
   elsif errors['code'] == 'not_present'
     email_missing_error
+  elsif errors['code'] == 'not_found'
+    no_contact_error
   else
     internal_server_error
   end
