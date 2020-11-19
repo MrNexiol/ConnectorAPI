@@ -3,10 +3,10 @@
 class GistContactExtractor
   KEYS_TO_EXTRACT_LIST = %w[id full_name job_title company_name avatar].freeze
   KEYS_TO_EXTRACT = %w[id phone_number first_name last_name job_title company_name mobile_phone_number avatar].freeze
-  @json_template = {
+  @json_list_template = {
     contacts: nil,
-    next_page_token: nil,
-    next_sync_token: nil
+    next_page: nil,
+    last_page: nil
   }
   @error_template = {
     error_code: nil,
@@ -42,8 +42,14 @@ def json_contact_list(ruby_response)
     end
     tmp << tmp2
   end
-  @json_template['contacts'] = tmp
-  MultiJson.dump(@json_template)
+  prepare_response ruby_response, tmp
+  MultiJson.dump(@json_list_template)
+end
+
+def prepare_response(ruby_response, tmp)
+  @json_list_template['next_page'] = Rack::Utils.parse_query(URI(ruby_response['pages']['next']).query)['page']
+  @json_list_template['last_page'] = Rack::Utils.parse_query(URI(ruby_response['pages']['last']).query)['page']
+  @json_list_template['contacts'] = tmp
 end
 
 def json_contact(ruby_response)
