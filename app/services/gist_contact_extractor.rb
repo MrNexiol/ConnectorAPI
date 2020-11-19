@@ -15,13 +15,14 @@ class GistContactExtractor
     parameter_missing: [204, 'Contact identifier missing'],
     not_present: [400, 'Contact email missing'],
     not_found: [204, 'No contact with given id found'],
+    empty_list: [204, 'No contacts found'],
     internal_error: [500, 'Internal server error']
   }
 
   def self.parse_contact_list(json)
     ruby_res = MultiJson.load(json)
-    if ruby_res.key? 'errors'
-      no_contacts_error
+    if ruby_res['contacts'].empty?
+      choose_error_message :empty_list
     else
       json_contact_list ruby_res
     end
@@ -30,7 +31,8 @@ class GistContactExtractor
   def self.parse_contact(json)
     ruby_res = MultiJson.load(json)
     if ruby_res.key? 'errors'
-      choose_error_message ruby_res['errors'][0]
+      error_code = ruby_res['errors'][0]['code'].to_sym
+      choose_error_message error_code
     else
       json_contact ruby_res
     end
@@ -66,15 +68,8 @@ def prepare_response(ruby_response, tmp)
   @json_list_template['contacts'] = tmp
 end
 
-def choose_error_message(errors)
-  tmp = errors['code'].to_sym
-  @error_template['error_code'] = @error_codes[tmp][0]
-  @error_template['error_message'] = @error_codes[tmp][1]
-  MultiJson.dump(@error_template)
-end
-
-def no_contacts_error
-  @error_template['error_code'] = 204
-  @error_template['error_message'] = 'No contacts found'
+def choose_error_message(error_code)
+  @error_template['error_code'] = @error_codes[error_code][0]
+  @error_template['error_message'] = @error_codes[error_code][1]
   MultiJson.dump(@error_template)
 end
