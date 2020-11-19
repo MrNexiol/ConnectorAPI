@@ -2,7 +2,7 @@
 
 class ContactsController < ApplicationController
   def index
-    tmp = GistRequestMaker.get
+    tmp = GistRequestMaker.get(per_page: params[:per_page], page: params[:page])
     render json: GistContactExtractor.parse_contact_list(tmp)
   end
 

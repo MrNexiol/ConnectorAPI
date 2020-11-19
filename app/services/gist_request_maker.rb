@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class GistRequestMaker
-  def self.get(id: nil)
+  def self.get(id: nil, per_page: 50, page: 1)
     HTTP.headers(Authorization: "Bearer #{ENV['GIST_ACCESS_TOKEN']}",
-                 'Content-Type': 'application/json').get("https://api.getgist.com/contacts/#{id}").to_s
+                 'Content-Type': 'application/json').get("https://api.getgist.com/contacts/#{id}",
+                                                         params: { per_page: per_page, page: page }).to_s
   end
 
   def self.delete(id:)
