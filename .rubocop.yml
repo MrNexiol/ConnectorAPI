@@ -2,3 +2,7 @@ require: rubocop-rails
 
 Style/Documentation:
   Enabled: False
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/requests/*
